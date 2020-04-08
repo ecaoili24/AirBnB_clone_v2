@@ -30,4 +30,4 @@ def do_deploy(archive_path):
     except:
         return False
     else:
-        return False
+        return True
