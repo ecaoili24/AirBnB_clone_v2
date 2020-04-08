@@ -16,17 +16,18 @@ def do_deploy(archive_path):
     if not os.path.isfile(archive_path):
         return False
     basename = path = os.path.basename(archive_path)
-    root = os.path.splitext(basename)
-    target = "/data/web_static/releases/".format(root)
+    root, ext = os.path.splitext(basename)
+    target = '/data/web_static/releases/{}'.format(root)
     try:
-        put(archive_path, '/tmp/')
-        run('mkdir -p {}{}/'.format(target))
-        run('tar -xzf /tmp/{} -C {}{}/'.format(path, target))
-        run('rm /tmp/{}'.format(path))
-        run('mv {0}{1}/web_static/* {0}{1}/'.format(target, target))
-        run('rm -rf {}{}/web_static'.format(target))
-        run('rm -rf /data/web_static/current')
-        run('ln -s {}{}/ /data/web_static/current'.format(target))
+        put(archive_path, "/tmp/")
+        run("sudo mkdir -p {}/".format(target))
+        run("sudo tar -xzf /tmp/{} -C {}/".format(path, target))
+        run("sudo rm /tmp/{}".format(path))
+        run("sudo mv {}/web_static/* {}/".format(target, target))
+        run("sudo rm -rf {}/web_static".format(target))
+        run("sudo rm -rf /data/web_static/current")
+        run("sudo ln -s {} /data/web_static/current".format(target))
+        print('New version deployed!')
     except:
         return False
     else:
