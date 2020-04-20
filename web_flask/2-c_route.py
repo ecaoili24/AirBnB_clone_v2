@@ -22,7 +22,7 @@ def hbnb():
 @app.route('/c/<text>')
 def c_is_fun(text):
     """
-    Returns a string for for /c/<text> route, replace _ with space
+    Returns a string for /c/<text> route, replace _ with space
     """
     return "C {}".format(text.replace("_", " "))
 
