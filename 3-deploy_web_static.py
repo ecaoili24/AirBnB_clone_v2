@@ -6,9 +6,31 @@ archive to the web servers
 import os.path
 from fabric.api import *
 from fabric.contrib import files
+from datetime import datetime
+
 
 env.user = "ubuntu"
 env.hosts = ['34.74.200.157', '107.20.131.122']
+d = datetime.now()
+
+
+def do_pack():
+    """
+    Returns the archive path if successful and packs web_static files into
+    .tgz file
+    """
+
+    file_name = 'versions/web_static_{}{}{}{}{}{}.tgz'.format(d.year,
+                                                              d.month,
+                                                              d.day,
+                                                              d.hour,
+                                                              d.minute,
+                                                              d.second)
+    local('mkdir -p versions')
+    check = local("tar -cvzf " + file_name + " ./web_static/")
+    if check.succeeded:
+        return file_name
+    return None
 
 
 def do_deploy(archive_path):
@@ -32,3 +54,11 @@ def do_deploy(archive_path):
         return False
     else:
         return True
+
+
+def deploy():
+    """Creates and distributes an archive to web servers"""
+    my_archive = do_pack()
+    if my_archive is None:
+        return False
+    return do_deploy(my_archive)
