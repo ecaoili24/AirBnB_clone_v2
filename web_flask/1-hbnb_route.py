@@ -12,6 +12,7 @@ def hello_holberton():
     """ Returns a string at the root route"""
     return 'Hello HBNB!'
 
+
 @app.route('/hbnb')
 def hbnb():
     """ Returns the desired string for /hbnb route"""
