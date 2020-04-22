@@ -16,7 +16,7 @@ app = Flask(__name__)
 def show_cities_by_state():
     """Displays cities by states"""
     state_dict = storage.all(State)
-    return render_template('8-states_list.html', state_dict=state_dict)
+    return render_template('8-cities_by_states.html', state_dict=state_dict)
 
 
 @app.teardown_appcontext
