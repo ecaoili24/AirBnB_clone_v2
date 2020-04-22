@@ -20,9 +20,9 @@ class State(BaseModel, Base):
         def cities(self):
             city_list = []
             city_dict = models.storage.all(models.city.City)
-            for obj in models.storage.all(City).items():
-                if obj.state_id == self.id:
-                    city_list.append(obj)
+            for key, value  in models.storage.all(City).items():
+                if value.state_id == self.id:
+                    city_list.append(value)
             return city_list
     else:
         cities = relationship("City", backref="state",
