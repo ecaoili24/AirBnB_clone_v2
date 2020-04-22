@@ -16,12 +16,12 @@ class State(BaseModel, Base):
 
     __tablename__ = 'states'
     name = Column(String(128), nullable=False)
-    if os.getenv("HBNB_TYPE_STORAGE") == "db":
+    if os.getenv("HBNB_TYPE_STORAGE") != "db":
         @property
         def cities(self):
             city_list = []
             city_dict = models.storage.all(models.city.City)
-            for key, value in models.storage.all(City).items():
+            for key, value in city_dict.items():
                 if value.state_id == self.id:
                     city_list.append(value)
             return city_list
