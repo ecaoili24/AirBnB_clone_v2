@@ -12,7 +12,7 @@ from models import State
 app = Flask(__name__)
 
 
-@app.route('/cities_by_states_list', strict_slashes=False)
+@app.route('/cities_by_states', strict_slashes=False)
 def show_cities_by_state():
     """Displays cities by states"""
     state_dict = storage.all(State)
