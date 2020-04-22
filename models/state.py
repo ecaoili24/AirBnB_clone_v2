@@ -16,12 +16,14 @@ class State(BaseModel, Base):
     __tablename__ = 'states'
     name = Column(String(128), nullable=False)
     if os.getenv("HBNB_TYPE_STORAGE") == "db":
-        cities = relationship("City", backref="state", cascade="all, delete")
-    else:
         @property
         def cities(self):
             city_list = []
+            city_dict = models.storage.all(models.city.City)
             for obj in models.storage.all(City).items():
                 if obj.state_id == self.id:
                     city_list.append(obj)
             return city_list
+    else:
+        cities = relationship("City", backref="state",
+                              cascade="all, delete-orphan")
