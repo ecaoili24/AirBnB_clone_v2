@@ -3,12 +3,8 @@
 A script that starts a Flask web application
 """
 
-from flask import Flask
-from flask import render_template
-from flask import escape
-from models import storage
-from models import State
-from models import Amenity
+from flask import Flask, render_template, escape
+from models import storage, State, Amenity
 
 app = Flask(__name__)
 
